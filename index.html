@@ -98,9 +98,12 @@
 
         .brand {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
             font-weight: 800;
+            max-height: 50px;
+            overflow: hidden;
         }
 
         .brand .title {
@@ -831,7 +834,13 @@
     <div class="mac">
         <div class="topbar">
             <div class="traffic"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-            <div class="brand"><span class="title">Marketing Dashboard</span></div>
+            <div class="brand">
+                <div style="font-size:11px; font-weight:700; color:#E5E7EB; line-height:1.1">Consolidated Core</div>
+                <div style="font-size:7px; color:#6B7280; margin-top:1px; line-height:1">The Operating System for
+                    Nepal's Education Consultancies</div>
+                <div style="font-size:13px; color:#60A5FA; margin-top:4px; font-weight:700" id="dashboardTitle">CEO View
+                </div>
+            </div>
             <div class="icons">
                 <div class="ico"></div>
                 <div class="ico"></div>
@@ -1719,6 +1728,18 @@
                     a.classList.remove('active');
                 }
             });
+
+            // Update dashboard title in header
+            const titleMap = {
+                'ceoview': 'CEO View',
+                'marketing': 'Marketing Dashboard',
+                'callcenter': 'Call Center',
+                'salesvisa': 'Sales & Visa'
+            };
+            const titleElement = document.getElementById('dashboardTitle');
+            if (titleElement && titleMap[name]) {
+                titleElement.textContent = titleMap[name];
+            }
 
             // Show selected view
             const viewMap = {
