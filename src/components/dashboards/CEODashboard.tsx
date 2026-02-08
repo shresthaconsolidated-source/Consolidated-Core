@@ -124,11 +124,11 @@ export default function CEODashboard() {
     const activeCount = s ? s.repStats.reduce((acc, r) => acc + r.active, 0) : 0;
 
     return (
-        <div className="p-6 space-y-6">
-            <h2 className="text-xl font-bold text-white mb-4">Executive Overview</h2>
+        <div className="p-4 space-y-4 h-full overflow-y-auto">
+            <h2 className="text-lg font-bold text-white mb-2">Executive Overview</h2>
 
             {/* Financials & Peformers Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 <MetricCard
                     icon="📉"
                     title="CAC"
@@ -167,10 +167,10 @@ export default function CEODashboard() {
             </div>
 
             {/* CHARTS ROW */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-[#1e293b]/50 border border-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-bold text-[#E5E7EB] mb-4">Growth Trend (Spend vs Visas)</h3>
-                    <div className="h-[300px] w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 bg-[#1e293b]/50 border border-white/5 rounded-xl p-4">
+                    <h3 className="text-base font-bold text-[#E5E7EB] mb-2">Growth Trend (Spend vs Visas)</h3>
+                    <div className="h-[250px] w-full">
                         {metrics && (
                             <GrowthTrendChart
                                 labels={s?.trendData.labels || []} // Use Sales labels as base (usually aligned)
@@ -180,9 +180,9 @@ export default function CEODashboard() {
                         )}
                     </div>
                 </div>
-                <div className="bg-[#1e293b]/50 border border-white/5 rounded-xl p-6">
-                    <h3 className="text-lg font-bold text-[#E5E7EB] mb-4">Visas by Source</h3>
-                    <div className="h-[300px] w-full">
+                <div className="bg-[#1e293b]/50 border border-white/5 rounded-xl p-4">
+                    <h3 className="text-base font-bold text-[#E5E7EB] mb-2">Visas by Source</h3>
+                    <div className="h-[250px] w-full">
                         {metrics && s && (() => {
                             // Aggregate Visas by Source
                             const sourceCounts: Record<string, number> = {};
@@ -201,7 +201,7 @@ export default function CEODashboard() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* Marketing Highlights */}
                 <MetricCard
                     icon="📢"
@@ -239,7 +239,7 @@ export default function CEODashboard() {
                 />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* Sales Highlights */}
                 <MetricCard
                     icon="🏆"
