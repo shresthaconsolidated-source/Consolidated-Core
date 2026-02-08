@@ -20,7 +20,10 @@ export default function SalesVisaDashboard() {
 
     const presalesHot = useMemo(() => {
         if (!callCenterData || !dateRange) return 0;
-        return callCenterData.filter(r => (r.Stage || "").trim() === "Hot").length;
+        return callCenterData.filter(r => {
+            const d = new Date(r.Date);
+            return (r.Stage || "").trim() === "Hot" && d >= dateRange.start && d <= dateRange.end;
+        }).length;
     }, [callCenterData, dateRange]);
 
     const metrics = useMemo(() => {
@@ -49,8 +52,11 @@ export default function SalesVisaDashboard() {
             title = "Presales Hot Leads (Call Center)";
             // We need to fetch hot leads from CallCenterData, simplest is to filter again or pass if available
             // Since we only calc count above, let's filter here
-            if (callCenterData) {
-                data = callCenterData.filter(r => (r.Stage || "").trim() === "Hot").map(r => ({
+            if (callCenterData && dateRange) {
+                data = callCenterData.filter(r => {
+                    const d = new Date(r.Date);
+                    return (r.Stage || "").trim() === "Hot" && d >= dateRange.start && d <= dateRange.end;
+                }).map(r => ({
                     Date: new Date(r.Date).toLocaleDateString(),
                     "Client ID": r["Client ID"],
                     "Student Name": r["Student Name"],
