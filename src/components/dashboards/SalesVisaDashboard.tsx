@@ -99,7 +99,6 @@ export default function SalesVisaDashboard() {
     if (!metrics) return null;
 
     return (
-    return (
         <div className="h-full flex flex-col gap-4 p-4 overflow-hidden">
             {/* Row 1: KPI Cards (Compact) - Fixed Height */}
             <div className="flex-none grid grid-cols-5 gap-3 h-[100px]">
