@@ -99,9 +99,9 @@ export default function SalesVisaDashboard() {
     if (!metrics) return null;
 
     return (
-        <div className="h-full flex flex-col gap-4 p-4 overflow-hidden">
+        <div className="h-full flex flex-col gap-3 p-3 overflow-hidden">
             {/* Row 1: KPI Cards (Compact) - Fixed Height */}
-            <div className="flex-none grid grid-cols-5 gap-3 h-[100px]">
+            <div className="flex-none grid grid-cols-5 gap-3 h-[85px]">
                 <MetricCard
                     icon="🔥" title="Presales Hot" value={presalesHot} subtitle="Leads" color="#FEBB2E"
                     onClick={() => handleMetricClick('hot')}
