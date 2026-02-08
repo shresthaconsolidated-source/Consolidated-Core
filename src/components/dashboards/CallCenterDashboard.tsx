@@ -170,12 +170,12 @@ export default function CallCenterDashboard() {
             {/* Main Content Area - Fills remaining height */}
             <div className="flex-1 min-h-0 relative">
                 {activeTab === 'summary' && (
-                    <div className="h-full grid grid-cols-12 gap-3">
-                        {/* Left: Charts (60%) */}
-                        <div className="col-span-7 flex flex-col gap-3 min-h-0">
-                            {/* Rep Status Chart */}
-                            <div className="flex-1 card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0">
-                                <h3 className="text-sm font-bold text-white mb-2 shrink-0">Status Breakdown</h3>
+                    <div className="h-full flex flex-col gap-3">
+                        {/* Middle Row: Chart & Top Reps (Fixed Height or Ratio) */}
+                        <div className="h-[45%] grid grid-cols-12 gap-3 shrink-0">
+                            {/* Left: Status Breakdown (70%) */}
+                            <div className="col-span-8 card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0">
+                                <h3 className="text-base font-bold text-white mb-2 shrink-0">Status Breakdown</h3>
                                 <div className="flex-1 w-full min-h-0 relative">
                                     <RepStatusChart
                                         data={metrics.repStats}
@@ -183,13 +183,10 @@ export default function CallCenterDashboard() {
                                     />
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Right: Lists (40%) */}
-                        <div className="col-span-5 flex flex-col gap-3 min-h-0">
-                            {/* Top Call Reps */}
-                            <div className="flex-[2] card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 min-h-0">
-                                <h3 className="text-sm font-bold text-white mb-2 shrink-0">Top Call Reps</h3>
+                            {/* Right: Top Call Reps (30%) */}
+                            <div className="col-span-4 card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 min-h-0">
+                                <h3 className="text-base font-bold text-white mb-2 shrink-0">Top Call Reps</h3>
                                 <div className="flex-1 overflow-y-auto space-y-2 pr-1">
                                     {metrics.repStats.slice(0, 5).map((rep, i) => (
                                         <div
@@ -198,24 +195,24 @@ export default function CallCenterDashboard() {
                                             className="flex items-center justify-between p-2 bg-white/[0.03] rounded-lg border border-white/[0.05] cursor-pointer hover:bg-white/[0.05]"
                                         >
                                             <div className="flex items-center gap-2">
-                                                <span className="text-base">{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '👤'}</span>
-                                                <span className="font-bold text-[#E5E7EB] text-xs">{rep.name}</span>
+                                                <span className="text-lg">{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '👤'}</span>
+                                                <span className="font-bold text-[#E5E7EB] text-sm">{rep.name}</span>
                                             </div>
-                                            <div className="font-black text-sm text-[#E5E7EB]">{rep.total}</div>
+                                            <div className="font-black text-base text-[#E5E7EB]">{rep.total}</div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Performance Table (Simplified) */}
-                            <div className="flex-[3] card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-0 min-h-0 overflow-hidden">
-                                <div className="p-3 text-sm font-bold text-white shrink-0 border-b border-white/5">Performance</div>
-                                <PerformanceSummaryTable
-                                    data={metrics.repStats}
-                                    dayDiff={dayDiff}
-                                    onRowClick={(rep) => handleOpenDetails('rep_summary', rep)}
-                                />
-                            </div>
+                        {/* Bottom Row: Performance Table (Fills remaining) */}
+                        <div className="flex-1 card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-0 min-h-0 overflow-hidden">
+                            <div className="p-3 text-base font-bold text-white shrink-0 border-b border-white/5">Performance Summary</div>
+                            <PerformanceSummaryTable
+                                data={metrics.repStats}
+                                dayDiff={dayDiff}
+                                onRowClick={(rep) => handleOpenDetails('rep_summary', rep)}
+                            />
                         </div>
                     </div>
                 )}
