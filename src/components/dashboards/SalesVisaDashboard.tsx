@@ -99,87 +99,84 @@ export default function SalesVisaDashboard() {
     if (!metrics) return null;
 
     return (
-        <div className="p-6 space-y-6">
-            {/* Top Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    return (
+        <div className="h-full flex flex-col gap-4 p-4 overflow-hidden">
+            {/* Row 1: KPI Cards (Compact) - Fixed Height */}
+            <div className="flex-none grid grid-cols-5 gap-3 h-[100px]">
                 <MetricCard
-                    icon="🔥"
-                    title="Presales Hot"
-                    value={presalesHot}
-                    subtitle="Leads in Period"
-                    color="#FEBB2E"
+                    icon="🔥" title="Presales Hot" value={presalesHot} subtitle="Leads" color="#FEBB2E"
                     onClick={() => handleMetricClick('hot')}
                 />
                 <MetricCard
-                    icon="⏳"
-                    title="In Process"
-                    value={metrics.totalActive}
-                    subtitle="Total Active Files"
-                    color="#22D3EE"
+                    icon="⏳" title="In Process" value={metrics.totalActive} subtitle="Active Files" color="#22D3EE"
                     onClick={() => handleMetricClick('active')}
                 />
                 <MetricCard
-                    icon="✅"
-                    title="Completed"
-                    value={metrics.approvedCount + metrics.rejectedCount}
-                    subtitle="Approved/Rejected"
-                    color="#22c55e"
+                    icon="✅" title="Completed" value={metrics.approvedCount + metrics.rejectedCount} subtitle="Decisions" color="#22c55e"
                     onClick={() => handleMetricClick('completed')}
                 />
                 <MetricCard
-                    icon="❌"
-                    title="Lost"
-                    value={metrics.totalLost}
-                    subtitle="Withdrawn/Dropped"
-                    color="#FF3B57"
+                    icon="❌" title="Lost" value={metrics.totalLost} subtitle="Withdrawn" color="#FF3B57"
                     onClick={() => handleMetricClick('lost')}
                 />
                 <MetricCard
-                    icon="🚨"
-                    title="Lacked / Dropped"
-                    value={metrics.totalDropped}
-                    subtitle="Hot but No Sales Start"
-                    color="#F43F5E"
+                    icon="🚨" title="Dropped" value={metrics.totalDropped} subtitle="No Sales" color="#F43F5E"
                     onClick={() => handleMetricClick('dropped')}
                 />
             </div>
 
-            <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-bold text-[#E5E7EB]">
-                    Sales Rep Overview
-                    <span className="ml-2 text-xs text-slate-500 font-normal">
-                        (Debug: {salesData?.length || 0} rows, active: {metrics.totalActive})
-                    </span>
-                </h3>
-                <details className="text-xs text-slate-600">
-                    <summary>Raw Data Sample</summary>
-                    <pre className="absolute bg-[#1e293b] p-4 border border-slate-700 rounded shadow-xl z-50 text-slate-300 max-w-sm overflow-auto">
-                        {JSON.stringify(salesData?.[0] || {}, null, 2)}
-                    </pre>
-                </details>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {metrics.repStats.map((rep) => (
-                    <RepOverviewCard key={rep.name} stats={rep} onClick={() => console.log(rep.name)} />
-                ))}
-            </div>
+            {/* Row 2: Main Content Grid - Fills remaining height */}
+            <div className="flex-1 min-h-0 grid grid-cols-12 gap-4">
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div className="lg:col-span-6">
-                    <StageProgressTable stages={metrics.stageStats} onStageClick={handleStageClick} />
+                {/* Col 1: Rep Overview (Left) - Scrollable List */}
+                <div className="col-span-3 bg-[#1e293b]/50 border border-white/5 rounded-xl flex flex-col overflow-hidden">
+                    <div className="p-3 border-b border-white/5 font-bold text-[#E5E7EB] text-sm flex justify-between">
+                        <span>Sales Reps</span>
+                        <span className="text-xs text-slate-500 font-normal self-center">{salesData?.length} files</span>
+                    </div>
+                    <div className="flex-1 overflow-y-auto p-3 space-y-3">
+                        {metrics.repStats.map((rep) => (
+                            <RepOverviewCard key={rep.name} stats={rep} onClick={() => console.log(rep.name)} />
+                        ))}
+                    </div>
                 </div>
-                <div className="lg:col-span-3">
-                    <VisasGrantedList grants={metrics.grantedList} />
-                </div>
-                <div className="lg:col-span-3">
-                    <SuccessRateCard rate={metrics.successRate} approved={metrics.approvedCount} rejected={metrics.rejectedCount} />
-                </div>
-            </div>
 
-            <div className="bg-[#1e293b]/50 border border-white/5 rounded-xl p-6">
-                <h3 className="text-lg font-bold text-[#E5E7EB] mb-4">Sales Velocity</h3>
-                <div className="h-[300px] w-full">
-                    <SalesTrendChart labels={metrics.trendData.labels} leads={metrics.trendData.leads} visas={metrics.trendData.visas} />
+                {/* Col 2: Pipeline & Trend (Middle) - Stacked */}
+                <div className="col-span-6 flex flex-col gap-4 min-h-0">
+                    {/* Top: Stage Progress Table - Scrollable Body */}
+                    <div className="flex-[3] min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden flex flex-col">
+                        <div className="p-3 border-b border-white/5 font-bold text-[#E5E7EB] text-sm">Stage Pipeline</div>
+                        <div className="flex-1 overflow-hidden relative">
+                            {/* Passing className to force internal scroll if supported, or wrap */}
+                            <div className="absolute inset-0 overflow-y-auto">
+                                <StageProgressTable stages={metrics.stageStats} onStageClick={handleStageClick} />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom: Sales Trend Chart */}
+                    <div className="flex-[2] min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col">
+                        <div className="font-bold text-[#E5E7EB] text-sm mb-2">Sales Velocity (Last 6 Months)</div>
+                        <div className="flex-1 w-full min-h-0">
+                            <SalesTrendChart labels={metrics.trendData.labels} leads={metrics.trendData.leads} visas={metrics.trendData.visas} />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Col 3: Results (Right) - Stacked */}
+                <div className="col-span-3 flex flex-col gap-4 min-h-0">
+                    {/* Top: Success Rate */}
+                    <div className="flex-none">
+                        <SuccessRateCard rate={metrics.successRate} approved={metrics.approvedCount} rejected={metrics.rejectedCount} />
+                    </div>
+
+                    {/* Bottom: Visas Granted List - Scrollable */}
+                    <div className="flex-1 min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden flex flex-col">
+                        <div className="p-3 border-b border-white/5 font-bold text-[#E5E7EB] text-sm">Recent Visas</div>
+                        <div className="flex-1 overflow-y-auto p-0">
+                            <VisasGrantedList grants={metrics.grantedList} />
+                        </div>
+                    </div>
                 </div>
             </div>
 
