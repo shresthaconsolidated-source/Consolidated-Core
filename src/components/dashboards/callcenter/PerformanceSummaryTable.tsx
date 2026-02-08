@@ -16,6 +16,10 @@ export default function PerformanceSummaryTable({ data, dayDiff, onRowClick }: P
                             <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10">Rep Name</th>
                             <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10 text-right">Total Calls</th>
                             <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10 text-right">Avg/Day</th>
+                            <th className="p-3 text-xs font-bold text-[#FEBB2E] border-b border-white/10 text-right">🔥 Hot</th>
+                            <th className="p-3 text-xs font-bold text-[#28C840] border-b border-white/10 text-right">✅ Warm</th>
+                            <th className="p-3 text-xs font-bold text-[#38BDF8] border-b border-white/10 text-right">❄️ Cold</th>
+                            <th className="p-3 text-xs font-bold text-[#FF5F57] border-b border-white/10 text-right">❌ Lost</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm text-slate-200">
@@ -37,6 +41,10 @@ export default function PerformanceSummaryTable({ data, dayDiff, onRowClick }: P
                                 <td className="p-3 text-right text-slate-400">
                                     {(rep.total / dayDiff).toFixed(1)}
                                 </td>
+                                <td className="p-3 text-right font-bold text-[#FEBB2E]">{rep.hot}</td>
+                                <td className="p-3 text-right font-bold text-[#28C840]">{rep.warm}</td>
+                                <td className="p-3 text-right font-bold text-[#38BDF8]">{rep.cold}</td>
+                                <td className="p-3 text-right font-bold text-[#FF5F57]">{rep.lost}</td>
                             </tr>
                         ))}
                     </tbody>
