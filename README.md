@@ -37,11 +37,13 @@ src/
 └── utils/                 # CSV parser, data processing
 ```
 
-## Data Sources
+## Configuration
 
-- Marketing: Google Sheets (CSV)
-- Call Center: Apps Script API + localStorage cache
-- Sales & Visa: Apps Script API
+- **Default Date Range**: The dashboard defaults to showing data from **Jan 1, 2023** to the **current date**.
+- **Data Sources**: Configured in `src/context/DataContext.tsx`.
+  - Marketing: Google Sheets (CSV)
+  - Call Center: Apps Script API + localStorage cache
+  - Sales & Visa: Apps Script API
 
 ## Build for Production
 
