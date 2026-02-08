@@ -5,13 +5,11 @@ import StageProgressTable from '@/components/dashboards/salesvisa/StageProgressT
 import VisasGrantedList from '@/components/dashboards/salesvisa/VisasGrantedList';
 import SuccessRateCard from '@/components/dashboards/salesvisa/SuccessRateCard';
 import SalesTrendChart from '@/components/dashboards/salesvisa/SalesTrendChart';
-import { calculateSalesMetrics } from '@/utils/salesMetrics';
-import Modal from '@/components/common/Modal';
-import MetricCard from '@/components/common/MetricCard';
+import { calculateCallCenterMetrics } from '@/utils/callCenterMetrics'; // Add Import
 
 export default function SalesVisaDashboard() {
     const context = useContext(DataContext);
-    const { loading, salesData, callCenterData, dateRange } = context || {};
+    const { loading, salesData, callCenterData, dateRange, selectedSources } = context || {}; // Add selectedSources
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
@@ -20,11 +18,10 @@ export default function SalesVisaDashboard() {
 
     const presalesHot = useMemo(() => {
         if (!callCenterData || !dateRange) return 0;
-        return callCenterData.filter(r => {
-            const d = new Date(r.Date);
-            return (r.Stage || "").trim() === "Hot" && d >= dateRange.start && d <= dateRange.end;
-        }).length;
-    }, [callCenterData, dateRange]);
+        // Use shared metrics to ensure consistency
+        const ccMetrics = calculateCallCenterMetrics(callCenterData, dateRange, selectedSources || []);
+        return ccMetrics.hotLeads;
+    }, [callCenterData, dateRange, selectedSources]);
 
     const metrics = useMemo(() => {
         if (!context || !salesData || salesData.length === 0 || !dateRange) return null;
