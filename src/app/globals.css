@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg: #0F172A;
+    --stroke: rgba(148, 163, 184, .12);
+    --stroke2: rgba(148, 163, 184, .18);
+    --text: #E5E7EB;
+    --muted2: #94A3B8;
+    --cyan: #22D3EE;
+    --good: #39FF88;
+    --bad: #FF3B57;
+    --shadow: 0 14px 40px rgba(0, 0, 0, .55);
+    --r: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: radial-gradient(1200px 800px at 30% 10%, rgba(34, 211, 238, .12), transparent 55%),
+        radial-gradient(900px 600px at 70% 30%, rgba(57, 255, 136, .10), transparent 55%),
+        linear-gradient(180deg, #0B1220 0%, var(--bg) 55%, #0B1220 100%);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--stroke);
+    border-radius: var(--r);
+    padding: 20px;
+    transition: all 0.2s ease;
+}
+
+.card.clickable {
+    cursor: pointer;
+}
+
+.card.clickable:hover {
+    background: rgba(255, 255, 255, .06);
+    border-color: var(--stroke2);
+    transform: translateY(-2px);
+}
+
+/* KPI Card Styles */
+.kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kpi-icon {
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.kpi-sub {
+    font-size: 11px;
+    color: var(--muted2);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+}
+
+.kpi-trend {
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Loading State */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 60px 20px;
+}
+
+.pill {
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, .08);
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted2);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-container {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .04));
+    border: 1px solid var(--stroke2);
+    border-radius: var(--r);
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--stroke);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-close {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid var(--stroke);
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+    font-size: 20px;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, .12);
+    border-color: var(--stroke2);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted2);
+    border-bottom: 1px solid var(--stroke);
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--stroke);
+    font-size: 13px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background: rgba(255, 255, 255, .02);
+}
