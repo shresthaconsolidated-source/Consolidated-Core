@@ -5,7 +5,10 @@ import StageProgressTable from '@/components/dashboards/salesvisa/StageProgressT
 import VisasGrantedList from '@/components/dashboards/salesvisa/VisasGrantedList';
 import SuccessRateCard from '@/components/dashboards/salesvisa/SuccessRateCard';
 import SalesTrendChart from '@/components/dashboards/salesvisa/SalesTrendChart';
-import { calculateCallCenterMetrics } from '@/utils/callCenterMetrics'; // Add Import
+import { calculateSalesMetrics } from '@/utils/salesMetrics';
+import { calculateCallCenterMetrics } from '@/utils/callCenterMetrics';
+import Modal from '@/components/common/Modal';
+import MetricCard from '@/components/common/MetricCard';
 
 export default function SalesVisaDashboard() {
     const context = useContext(DataContext);
