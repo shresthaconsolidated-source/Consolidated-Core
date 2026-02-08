@@ -81,5 +81,5 @@ export default function SalesTrendChart({ labels, leads, visas }: SalesTrendChar
         };
     }, [labels, leads, visas]);
 
-    return <canvas ref={canvasRef} />;
+    return <canvas ref={canvasRef} className="w-full h-full" />;
 }
