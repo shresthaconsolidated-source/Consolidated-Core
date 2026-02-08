@@ -121,150 +121,142 @@ export default function CallCenterDashboard() {
     const dayDiff = Math.max(1, (dateRange!.end.getTime() - dateRange!.start.getTime()) / (1000 * 60 * 60 * 24));
 
     return (
-        <div className="p-6 space-y-6">
-            {/* Tabs */}
-            <div className="flex space-x-1 bg-white/5 p-1 rounded-lg w-fit">
-                <button
-                    onClick={() => setActiveTab('summary')}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'summary'
-                            ? 'bg-[#3B82F6] text-white shadow-lg'
-                            : 'text-slate-400 hover:text-white hover:bg-white/5'
-                        }`}
-                >
-                    Summary
-                </button>
-                <button
-                    onClick={() => setActiveTab('analytics')}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'analytics'
-                            ? 'bg-[#3B82F6] text-white shadow-lg'
-                            : 'text-slate-400 hover:text-white hover:bg-white/5'
-                        }`}
-                >
-                    Analytics
-                </button>
+        <div className="h-full flex flex-col gap-3 p-3 overflow-hidden">
+            {/* Tabs & KPIs Row - Compact */}
+            <div className="flex-none flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                    <div className="flex space-x-1 bg-white/5 p-0.5 rounded-lg">
+                        <button
+                            onClick={() => setActiveTab('summary')}
+                            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${activeTab === 'summary'
+                                ? 'bg-[#3B82F6] text-white shadow-lg'
+                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                }`}
+                        >
+                            Summary
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('analytics')}
+                            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${activeTab === 'analytics'
+                                ? 'bg-[#3B82F6] text-white shadow-lg'
+                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                }`}
+                        >
+                            Analytics
+                        </button>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-4 gap-3 h-[85px]">
+                    <MetricCard
+                        icon="📞" title="Leakage" value={`${metrics.leakage}`} subtitle="Leads Uncalled" color="#FF3B57"
+                        onClick={() => handleOpenDetails('leakage')}
+                    />
+                    <MetricCard
+                        icon="📊" title="Total Calls" value={metrics.totalCalls.toLocaleString()} subtitle="Selected Period" color="#E5E7EB"
+                        onClick={() => handleOpenDetails('total')}
+                    />
+                    <MetricCard
+                        icon="🔄" title="Reverted" value={metrics.reverted} subtitle="Active Again" color="#E5E7EB"
+                        onClick={() => handleOpenDetails('reverted')}
+                    />
+                    <MetricCard
+                        icon="🔥" title="Total Hot" value={metrics.hotLeads} subtitle="Stage = Hot" color="#FEBB2E"
+                        onClick={() => handleOpenDetails('hot')}
+                    />
+                </div>
             </div>
 
-            {/* Top Metrics Grid (Always Visible) */}
-            <div className="grid grid-cols-4 gap-4">
-                <MetricCard
-                    icon="📞"
-                    title="Leakage Alert"
-                    value={`${metrics.leakage} Leads`}
-                    subtitle="Leads Uncalled"
-                    color="#FF3B57"
-                    onClick={() => handleOpenDetails('leakage')}
-                />
-                <MetricCard
-                    icon="📊"
-                    title="Total Calls"
-                    value={metrics.totalCalls.toLocaleString()}
-                    subtitle="In selected period"
-                    color="#E5E7EB"
-                    onClick={() => handleOpenDetails('total')}
-                />
-                <MetricCard
-                    icon="🔄"
-                    title="Reverted Clients"
-                    value={metrics.reverted}
-                    subtitle="Old leads active again"
-                    color="#E5E7EB"
-                    onClick={() => handleOpenDetails('reverted')}
-                />
-                <MetricCard
-                    icon="🔥"
-                    title="Total Hot Leads"
-                    value={metrics.hotLeads}
-                    subtitle="Stage = Hot"
-                    color="#FEBB2E"
-                    onClick={() => handleOpenDetails('hot')}
-                />
-            </div>
+            {/* Main Content Area - Fills remaining height */}
+            <div className="flex-1 min-h-0 relative">
+                {activeTab === 'summary' && (
+                    <div className="h-full grid grid-cols-12 gap-3">
+                        {/* Left: Charts (60%) */}
+                        <div className="col-span-7 flex flex-col gap-3 min-h-0">
+                            {/* Rep Status Chart */}
+                            <div className="flex-1 card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0">
+                                <h3 className="text-sm font-bold text-white mb-2 shrink-0">Status Breakdown</h3>
+                                <div className="flex-1 w-full min-h-0 relative">
+                                    <RepStatusChart
+                                        data={metrics.repStats}
+                                        onBarClick={(rep, stage) => handleOpenDetails('rep_status', rep, stage)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
-            {/* Summary View */}
-            {activeTab === 'summary' && (
-                <>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[400px]">
-                        {/* Status Breakdown Chart */}
-                        <div className="card flex flex-col h-full bg-[#1e293b]/50 border border-white/5 rounded-xl p-4 lg:col-span-7">
-                            <h3 className="text-lg font-bold text-white mb-1">Status Breakdown by Rep</h3>
-                            <div className="flex-1 w-full min-h-0 relative">
-                                <RepStatusChart
+                        {/* Right: Lists (40%) */}
+                        <div className="col-span-5 flex flex-col gap-3 min-h-0">
+                            {/* Top Call Reps */}
+                            <div className="flex-[2] card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 min-h-0">
+                                <h3 className="text-sm font-bold text-white mb-2 shrink-0">Top Call Reps</h3>
+                                <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+                                    {metrics.repStats.slice(0, 5).map((rep, i) => (
+                                        <div
+                                            key={rep.name}
+                                            onClick={() => handleOpenDetails('rep_summary', rep.name)}
+                                            className="flex items-center justify-between p-2 bg-white/[0.03] rounded-lg border border-white/[0.05] cursor-pointer hover:bg-white/[0.05]"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-base">{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '👤'}</span>
+                                                <span className="font-bold text-[#E5E7EB] text-xs">{rep.name}</span>
+                                            </div>
+                                            <div className="font-black text-sm text-[#E5E7EB]">{rep.total}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Performance Table (Simplified) */}
+                            <div className="flex-[3] card flex flex-col bg-[#1e293b]/50 border border-white/5 rounded-xl p-0 min-h-0 overflow-hidden">
+                                <div className="p-3 text-sm font-bold text-white shrink-0 border-b border-white/5">Performance</div>
+                                <PerformanceSummaryTable
                                     data={metrics.repStats}
-                                    onBarClick={(rep, stage) => handleOpenDetails('rep_status', rep, stage)}
+                                    dayDiff={dayDiff}
+                                    onRowClick={(rep) => handleOpenDetails('rep_summary', rep)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'analytics' && (
+                    <div className="h-full grid grid-cols-2 gap-3 grid-rows-2">
+                        {/* Loss Reasons */}
+                        <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0">
+                            <h3 className="text-sm font-bold text-white mb-1 shrink-0">❌ Loss Reasons</h3>
+                            <div className="flex-1 min-h-0 relative">
+                                <LossReasonChart
+                                    data={metrics.lossReasons}
+                                    onSliceClick={(reason) => handleOpenDetails('loss_reason', reason)}
                                 />
                             </div>
                         </div>
 
-                        {/* Top Call Reps Leaderboard */}
-                        <div className="card flex flex-col h-full bg-[#1e293b]/50 border border-white/5 rounded-xl p-4 lg:col-span-5">
-                            <h3 className="text-lg font-bold text-white mb-4">Top Call Reps</h3>
-                            <div className="flex-1 overflow-auto space-y-2">
-                                {metrics.repStats.slice(0, 5).map((rep, i) => (
-                                    <div
-                                        key={rep.name}
-                                        onClick={() => handleOpenDetails('rep_summary', rep.name)}
-                                        className="flex items-center justify-between p-3 bg-white/[0.03] rounded-lg border border-white/[0.05] cursor-pointer hover:bg-white/[0.05]"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-xl">{i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '👤'}</span>
-                                            <span className="font-bold text-[#E5E7EB]">{rep.name}</span>
-                                        </div>
-                                        <div className="font-black text-lg text-[#E5E7EB]">{rep.total}</div>
-                                    </div>
-                                ))}
+                        {/* Hot Leads by Source */}
+                        <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0">
+                            <h3 className="text-sm font-bold text-white mb-1 shrink-0">🔥 Hot Leads by Source</h3>
+                            <div className="flex-1 min-h-0 relative">
+                                <SourcePerformanceChart
+                                    data={metrics.hotBySource}
+                                    onBarClick={(source) => handleOpenDetails('source_hot', source)}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Hot Leads Trend */}
+                        <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col min-h-0 col-span-2">
+                            <h3 className="text-sm font-bold text-white mb-1 shrink-0">📈 Hot Leads Trend (Last 6 Months)</h3>
+                            <div className="flex-1 min-h-0 relative">
+                                <TrendChart
+                                    data={metrics.trendData}
+                                    onPointClick={(dateKey) => handleOpenDetails('trend_month', dateKey)}
+                                />
                             </div>
                         </div>
                     </div>
-
-                    {/* Performance Summary Table */}
-                    <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-4">
-                        <h3 className="text-lg font-bold text-white mb-4">Performance Summary</h3>
-                        <PerformanceSummaryTable
-                            data={metrics.repStats}
-                            dayDiff={dayDiff}
-                            onRowClick={(rep) => handleOpenDetails('rep_summary', rep)}
-                        />
-                    </div>
-                </>
-            )}
-
-            {/* Analytics View */}
-            {activeTab === 'analytics' && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Loss Reasons */}
-                    <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-4 h-[350px] flex flex-col">
-                        <h3 className="text-lg font-bold text-white mb-1">❌ Loss Reasons</h3>
-                        <div className="flex-1 min-h-0 relative">
-                            <LossReasonChart
-                                data={metrics.lossReasons}
-                                onSliceClick={(reason) => handleOpenDetails('loss_reason', reason)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Hot Leads by Source */}
-                    <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-4 h-[350px] flex flex-col">
-                        <h3 className="text-lg font-bold text-white mb-1">🔥 Hot Leads by Source</h3>
-                        <div className="flex-1 min-h-0 relative">
-                            <SourcePerformanceChart
-                                data={metrics.hotBySource}
-                                onBarClick={(source) => handleOpenDetails('source_hot', source)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Top Trends (Full Width) */}
-                    <div className="card bg-[#1e293b]/50 border border-white/5 rounded-xl p-4 h-[350px] flex flex-col lg:col-span-2">
-                        <h3 className="text-lg font-bold text-white mb-1">📈 Hot Leads Trend (Last 6 Months)</h3>
-                        <div className="flex-1 min-h-0 relative">
-                            <TrendChart
-                                data={metrics.trendData}
-                                onPointClick={(dateKey) => handleOpenDetails('trend_month', dateKey)}
-                            />
-                        </div>
-                    </div>
-                </div>
-            )}
+                )}
+            </div>
 
             {/* Generic Modal for Drill Down */}
             <Modal

@@ -8,37 +8,40 @@ interface PerformanceSummaryTableProps {
 
 export default function PerformanceSummaryTable({ data, dayDiff, onRowClick }: PerformanceSummaryTableProps) {
     return (
-        <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-                <thead>
-                    <tr className="border-b border-white/[0.1]">
-                        <th className="py-3 px-4 text-xs font-semibold text-[#94A3B8] uppercase">Rep Name</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#94A3B8] uppercase">Total Calls</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#94A3B8] uppercase">Avg/Day</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#FEBB2E] uppercase">🔥 Hot</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#28C840] uppercase">✅ Warm</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#38BDF8] uppercase">❄️ Cold</th>
-                        <th className="py-3 px-4 text-xs font-semibold text-[#FF5F57] uppercase">❌ Lost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((row) => (
-                        <tr
-                            key={row.name}
-                            onClick={() => onRowClick && onRowClick(row.name)}
-                            className="border-b border-white/[0.05] hover:bg-white/[0.02] cursor-pointer"
-                        >
-                            <td className="py-3 px-4 text-sm text-[#E5E7EB] font-bold">{row.name}</td>
-                            <td className="py-3 px-4 text-sm text-[#E5E7EB] font-mono">{row.total}</td>
-                            <td className="py-3 px-4 text-sm text-[#94A3B8] font-mono">{(row.total / dayDiff).toFixed(1)}</td>
-                            <td className="py-3 px-4 text-sm text-[#FEBB2E] font-bold font-mono">{row.hot}</td>
-                            <td className="py-3 px-4 text-sm text-[#28C840] font-bold font-mono">{row.warm}</td>
-                            <td className="py-3 px-4 text-sm text-[#38BDF8] font-bold font-mono">{row.cold}</td>
-                            <td className="py-3 px-4 text-sm text-[#FF5F57] font-bold font-mono">{row.lost}</td>
+        <div className="flex-1 w-full overflow-hidden flex flex-col h-full">
+            <div className="flex-1 overflow-auto">
+                <table className="w-full text-left border-collapse">
+                    <thead className="sticky top-0 bg-[#1e293b] z-10">
+                        <tr>
+                            <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10">Rep Name</th>
+                            <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10 text-right">Total Calls</th>
+                            <th className="p-3 text-xs font-bold text-slate-400 border-b border-white/10 text-right">Avg/Day</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="text-sm text-slate-200">
+                        {data.map((rep) => (
+                            <tr
+                                key={rep.name}
+                                onClick={() => onRowClick && onRowClick(rep.name)}
+                                className="border-b border-white/5 hover:bg-white/5 cursor-pointer transition-colors"
+                            >
+                                <td className="p-3 font-medium">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-xs font-bold">
+                                            {rep.name.charAt(0)}
+                                        </div>
+                                        {rep.name}
+                                    </div>
+                                </td>
+                                <td className="p-3 text-right font-bold">{rep.total}</td>
+                                <td className="p-3 text-right text-slate-400">
+                                    {(rep.total / dayDiff).toFixed(1)}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
