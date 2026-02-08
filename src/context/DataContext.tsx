@@ -46,10 +46,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
     // Adjusted to ensure we capture data if it's earlier in the year
     const [dateRange, setDateRange] = useState<DateRange>(() => {
         const now = new Date();
-        // Default to Jan 1 of current year
-        const start = new Date(now.getFullYear(), 0, 1);
-        // Default to end of current month
-        const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        // Default to "All Time" (e.g., from Jan 1, 2023 to End of Current Year)
+        const start = new Date(2023, 0, 1);
+        const end = new Date(now.getFullYear(), 11, 31);
         return { start, end };
     });
 
