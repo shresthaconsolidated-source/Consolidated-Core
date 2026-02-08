@@ -64,6 +64,10 @@ export function calculateCallCenterMetrics(
             hotLeadsList.push(row);
         }
 
+        const date = parseDateAny(row.Date);
+        if (date) {
+            leakageLeads.push({ ...row, Date: date.toISOString(), Rep: row.Rep || "Unknown" });
+        }
         // Rep Stats
         const repName = row.Rep || "Unknown";
         if (!reps[repName]) {
@@ -103,7 +107,7 @@ export function calculateCallCenterMetrics(
     // 2. Hot Leads by Source (from filtered data)
     const hotBySource: Record<string, number> = {};
     hotLeadsList.forEach(row => {
-        const src = normalizeSource(row.Source);
+        const src = normalizeSource(row.Source || "Unknown");
         hotBySource[src] = (hotBySource[src] || 0) + 1;
     });
 
@@ -122,7 +126,7 @@ export function calculateCallCenterMetrics(
     }
 
     data.forEach(row => {
-        let dt = new Date(row.Date);
+        let dt: Date | null = new Date(row.Date);
         if (isNaN(dt.getTime())) dt = parseDateAny(row.Date);
         if (!dt || isNaN(dt.getTime())) return;
 

@@ -28,7 +28,7 @@ export async function parseCSV(url: string): Promise<any[]> {
                     if (results.data && results.data.length > 0) {
                         console.log(`Parsed ${results.data.length} rows.`);
                         // DEBUG: Log keys of first row
-                        console.log(`First row keys: ${Object.keys(results.data[0])}`);
+                        console.log(`First row keys: ${Object.keys((results.data[0] as any))}`);
                         resolve(results.data);
                     } else {
                         console.warn("Parsed CSV is empty.");

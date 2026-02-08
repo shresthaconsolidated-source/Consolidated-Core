@@ -5,7 +5,6 @@ import {
     BarElement,
     PointElement,
     LineElement,
-    Keyframes,
     Title,
     Tooltip,
     Legend,
@@ -13,7 +12,7 @@ import {
     ChartData,
     ChartOptions
 } from 'chart.js';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Chart, Pie } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -99,7 +98,7 @@ export function GrowthTrendChart({ labels, spend, visas }: GrowthChartProps) {
         },
     };
 
-    return <Bar data={data} options={options} />;
+    return <Chart type='bar' data={data} options={options} />;
 }
 
 interface SourceChartProps {

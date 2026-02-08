@@ -32,10 +32,10 @@ export default function TargetGauge({ title, actual, target, pct, color = "rgba(
                     data: [val, 100 - val],
                     backgroundColor: [color, "rgba(148,163,184,.18)"],
                     borderWidth: 0,
-                    cutout: "75%"
                 }]
             },
             options: {
+                cutout: "75%",
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
