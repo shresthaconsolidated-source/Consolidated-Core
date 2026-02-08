@@ -35,7 +35,7 @@ export async function parseCSV(url: string): Promise<any[]> {
                         resolve([]);
                     }
                 },
-                error: (error) => {
+                error: (error: any) => {
                     console.error("Papa Parse Error:", error);
                     reject(error);
                 }
