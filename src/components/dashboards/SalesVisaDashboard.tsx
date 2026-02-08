@@ -51,13 +51,18 @@ export default function SalesVisaDashboard() {
             // Since we only calc count above, let's filter here
             if (callCenterData) {
                 data = callCenterData.filter(r => (r.Stage || "").trim() === "Hot").map(r => ({
-                    Name: r["Student Name"],
-                    Phone: r["Phone Number"],
+                    Date: new Date(r.Date).toLocaleDateString(),
+                    "Client ID": r["Client ID"],
+                    "Student Name": r["Student Name"],
+                    "Phone Number": r["Phone Number"],
                     Source: r.Source,
+                    Status: r.Status,
+                    "Campaign Name": r["Campaign Name"],
+                    Stage: r.Stage,
                     Rep: r.Rep
                 }));
             }
-            keys = ['Name', 'Phone', 'Source', 'Rep'];
+            keys = ['Date', 'Client ID', 'Student Name', 'Phone Number', 'Source', 'Status', 'Campaign Name', 'Stage', 'Rep'];
         } else if (type === 'active') {
             title = "Total Active Files (In Process)";
             data = salesData?.filter(r => (r.Outcome || "").trim() === "In Process") || [];
