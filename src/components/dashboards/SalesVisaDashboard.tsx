@@ -143,20 +143,14 @@ export default function SalesVisaDashboard() {
                 {/* Col 2: Pipeline & Trend (Middle) - Stacked */}
                 <div className="col-span-6 flex flex-col gap-4 min-h-0">
                     {/* Top: Stage Progress Table - Scrollable Body */}
-                    <div className="flex-[3] min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden flex flex-col">
-                        <div className="p-3 border-b border-white/5 font-bold text-[#E5E7EB] text-sm">Stage Pipeline</div>
-                        <div className="flex-1 overflow-hidden relative">
-                            {/* Passing className to force internal scroll if supported, or wrap */}
-                            <div className="absolute inset-0 overflow-y-auto">
-                                <StageProgressTable stages={metrics.stageStats} onStageClick={handleStageClick} />
-                            </div>
-                        </div>
+                    <div className="flex-[3] min-h-0 overflow-hidden">
+                        <StageProgressTable stages={metrics.stageStats} onStageClick={handleStageClick} />
                     </div>
 
                     {/* Bottom: Sales Trend Chart */}
                     <div className="flex-[2] min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl p-3 flex flex-col">
-                        <div className="font-bold text-[#E5E7EB] text-sm mb-2">Sales Velocity (Last 6 Months)</div>
-                        <div className="flex-1 w-full min-h-0">
+                        <div className="font-bold text-[#E5E7EB] text-sm mb-2 shrink-0">Sales Velocity (Last 6 Months)</div>
+                        <div className="flex-1 w-full min-h-0 relative">
                             <SalesTrendChart labels={metrics.trendData.labels} leads={metrics.trendData.leads} visas={metrics.trendData.visas} />
                         </div>
                     </div>
@@ -170,11 +164,8 @@ export default function SalesVisaDashboard() {
                     </div>
 
                     {/* Bottom: Visas Granted List - Scrollable */}
-                    <div className="flex-1 min-h-0 bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden flex flex-col">
-                        <div className="p-3 border-b border-white/5 font-bold text-[#E5E7EB] text-sm">Recent Visas</div>
-                        <div className="flex-1 overflow-y-auto p-0">
-                            <VisasGrantedList grants={metrics.grantedList} />
-                        </div>
+                    <div className="flex-1 min-h-0 overflow-hidden">
+                        <VisasGrantedList grants={metrics.grantedList} />
                     </div>
                 </div>
             </div>

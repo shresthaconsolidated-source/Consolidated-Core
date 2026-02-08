@@ -25,20 +25,20 @@ export default function Home() {
 
                 {/* Dashboard Views - LAZY SWITCH PATTERN */}
                 {/* All dashboards render simultaneously, visibility toggled with CSS */}
-                <main className="flex-1 overflow-auto">
-                    <div className={activeTab === 'ceoview' ? 'block' : 'hidden'}>
+                <main className="flex-1 overflow-auto relative">
+                    <div className={`${activeTab === 'ceoview' ? 'block' : 'hidden'} h-full`}>
                         <CEODashboard />
                     </div>
 
-                    <div className={activeTab === 'marketing' ? 'block' : 'hidden'}>
+                    <div className={`${activeTab === 'marketing' ? 'block' : 'hidden'} h-full`}>
                         <MarketingDashboard />
                     </div>
 
-                    <div className={activeTab === 'callcenter' ? 'block' : 'hidden'}>
+                    <div className={`${activeTab === 'callcenter' ? 'block' : 'hidden'} h-full`}>
                         <CallCenterDashboard />
                     </div>
 
-                    <div className={activeTab === 'salesvisa' ? 'block' : 'hidden'}>
+                    <div className={`${activeTab === 'salesvisa' ? 'block' : 'hidden'} h-full`}>
                         <SalesVisaDashboard />
                     </div>
                 </main>

@@ -6,7 +6,7 @@ interface VisasGrantedListProps {
 
 export default function VisasGrantedList({ grants }: VisasGrantedListProps) {
     return (
-        <div className="card flex flex-col h-[300px] bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden">
+        <div className="card flex flex-col h-full bg-[#1e293b]/50 border border-white/5 rounded-xl overflow-hidden">
             <div className="p-4 border-b border-white/[0.05] flex justify-between items-center bg-[#22c55e]/5">
                 <div>
                     <div className="text-[11px] text-[#94A3B8] uppercase tracking-wide">Visas Granted (In Period)</div>
