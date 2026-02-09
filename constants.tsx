@@ -72,6 +72,66 @@ export const PLANS: PricingPlan[] = [
   }
 ];
 
+// ... keeping old plans for reference if needed, but adding new ones below
+export const PRICING_PLANS = [
+  {
+    name: "Starters",
+    price: "NPR 10,000",
+    period: "/month",
+    description: "For agencies that just need visibility. I track the numbers, you check the staff.",
+    features: [
+      "Weekly CEO Report",
+      "Automated Alerts Only",
+      "❌ No Human Verification",
+      "❌ No Daily Audit"
+    ],
+    popular: false,
+    idealClient: "Small Teams"
+  },
+  {
+    name: "Process Control",
+    price: "NPR 15,000",
+    period: "/month",
+    description: "I don't just report the news, I fix it. I step in and correct behavior.",
+    features: [
+      "Everything in Starters",
+      "Daily Staff Activity Audit",
+      "Direct Staff Correction",
+      "Enrollment Pipeline Cleaning"
+    ],
+    popular: true,
+    idealClient: "Growing Agencies"
+  },
+  {
+    name: "Multi-Branch",
+    price: "NPR 25,000",
+    period: "/month",
+    description: "Consolidated control and reporting for agencies with multiple locations.",
+    features: [
+      "Everything in Process Control",
+      "Branch-wise Reporting",
+      "Regional Manager Training",
+      "Consolidated Headquarters View"
+    ],
+    popular: false,
+    idealClient: "Scaling Agencies"
+  },
+  {
+    name: "Fractional CFO",
+    price: "NPR 45,000",
+    period: "/month",
+    description: "Complete financial oversight. AR, Cash Flow, and Future Projection.",
+    features: [
+      "Everything in Multi-Branch",
+      "Accounts Receivable Management",
+      "University Invoice Filing",
+      "Monthly Financial Strategy Call"
+    ],
+    popular: false,
+    idealClient: "Market Leaders"
+  }
+];
+
 export const NAV_LINKS = [
   { name: 'Home', href: '#' },
   { name: 'About', href: '#about' },
@@ -79,3 +139,14 @@ export const NAV_LINKS = [
 ];
 
 export const BOOKING_LINK = "https://calendly.com/shresthaconsolidated/30min";
+
+export const openCalendly = (e: React.MouseEvent) => {
+  e.preventDefault();
+  if ((window as any).Calendly) {
+    (window as any).Calendly.initPopupWidget({
+      url: BOOKING_LINK
+    });
+  } else {
+    window.open(BOOKING_LINK, '_blank');
+  }
+};
