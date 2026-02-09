@@ -43,7 +43,7 @@ const PrivacyPolicy: React.FC = () => {
                 </section>
 
                 <div className="mt-12 pt-8 border-t border-gray-200">
-                    <a href="/" className="text-blue-600 underline hover:text-blue-800">
+                    <a href="/#/" className="text-blue-600 underline hover:text-blue-800">
                         &larr; Back to Home
                     </a>
                 </div>

@@ -9,15 +9,15 @@ import ProcessInsights from './components/ProcessInsights';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
 
   useEffect(() => {
-    const handlePopState = () => setCurrentPath(window.location.pathname);
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    const handleHashChange = () => setCurrentHash(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  if (currentPath === '/privacy-policy') {
+  if (currentHash === '#/privacy-policy') {
     return <PrivacyPolicy />;
   }
 
