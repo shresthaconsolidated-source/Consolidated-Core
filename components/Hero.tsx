@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
               Audit My Process
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#about" className="bg-slate-900 text-white border border-slate-800 px-8 py-4 rounded-full text-base font-bold hover:bg-slate-800 transition-all duration-300 flex items-center justify-center gap-2">
+            <a href="#process-roadmap" className="bg-slate-900 text-white border border-slate-800 px-8 py-4 rounded-full text-base font-bold hover:bg-slate-800 transition-all duration-300 flex items-center justify-center gap-2">
               See How It Works
             </a>
           </div>
