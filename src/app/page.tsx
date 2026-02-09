@@ -8,7 +8,9 @@ import CallCenterDashboard from '@/components/dashboards/CallCenterDashboard';
 import SalesVisaDashboard from '@/components/dashboards/SalesVisaDashboard';
 import CEODashboard from '@/components/dashboards/CEODashboard';
 
-export type DashboardTab = 'ceoview' | 'marketing' | 'callcenter' | 'salesvisa';
+import ProcessRoadmap from '@/components/dashboards/ProcessRoadmap';
+
+export type DashboardTab = 'ceoview' | 'marketing' | 'callcenter' | 'salesvisa' | 'roadmap';
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState<DashboardTab>('ceoview');
@@ -40,6 +42,10 @@ export default function Home() {
 
                     <div className={`${activeTab === 'salesvisa' ? 'block' : 'hidden'} h-full`}>
                         <SalesVisaDashboard />
+                    </div>
+
+                    <div className={`${activeTab === 'roadmap' ? 'block' : 'hidden'} h-full`}>
+                        <ProcessRoadmap />
                     </div>
                 </main>
             </div>

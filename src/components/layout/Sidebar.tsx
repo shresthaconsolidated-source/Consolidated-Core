@@ -14,7 +14,8 @@ const navItems: { id: DashboardTab; label: string; icon: string }[] = [
     { id: 'ceoview', label: 'CEO View', icon: '👁️' },
     { id: 'marketing', label: 'Marketing', icon: '📊' },
     { id: 'callcenter', label: 'Call Center', icon: '📞' },
-    { id: 'salesvisa', label: 'Sales & Visa', icon: '✈️' }
+    { id: 'salesvisa', label: 'Sales & Visa', icon: '✈️' },
+    { id: 'roadmap', label: 'Process Roadmap', icon: '🚀' }
 ];
 
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
