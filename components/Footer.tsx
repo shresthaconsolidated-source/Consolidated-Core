@@ -5,7 +5,7 @@ import { BOOKING_LINK, openCalendly } from '../constants';
 
 const Footer: React.FC = () => {
   const phoneNumber = "9851312671";
-  const email = "consult@shresthaconsolidated.com";
+  const email = "shresthaconsolidated@gmail.com";
   const whatsappUrl = `https://wa.me/977${phoneNumber}`;
 
   return (

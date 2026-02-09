@@ -38,7 +38,7 @@ const PrivacyPolicy: React.FC = () => {
                 <section className="mb-8">
                     <h2 className="text-xl font-bold mb-4">5. Contact</h2>
                     <p className="leading-relaxed">
-                        For privacy concerns, contact us at: <a href="mailto:consult@shresthaconsolidated.com" className="text-blue-600 underline">consult@shresthaconsolidated.com</a>
+                        For privacy concerns, contact us at: <a href="mailto:shresthaconsolidated@gmail.com" className="text-blue-600 underline">shresthaconsolidated@gmail.com</a>
                     </p>
                 </section>
 
