@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
+import ProcessRoadmap from './components/ProcessRoadmap';
 import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import ProcessInsights from './components/ProcessInsights';
@@ -28,6 +29,7 @@ function App() {
         <Hero />
         <ProcessInsights />
         <About />
+        <ProcessRoadmap />
         <Pricing />
       </main>
       <Footer />
